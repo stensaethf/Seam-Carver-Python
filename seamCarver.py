@@ -44,18 +44,24 @@ def computeEnergy(image):
 	for y in range(height):
 		for x in range(width):
 			if x == 0:
-				# code.
+				x_1 = CODE.
+				x_2 = CODE.
 			else if x == width - 1:
-				# code.
+				x_1 = CODE.
+				x_2 = CODE.
 			else:
-				# code.
+				x_1 = CODE.
+				x_2 = CODE.
 
 			if y == 0:
-				# code.
+				y_1 = CODE.
+				y_2 = CODE.
 			else if y == height - 1:
-				# code.
+				y_1 = CODE.
+				y_2 = CODE.
 			else:
-				# code.
+				y_1 = CODE.
+				y_2 = CODE.
 
 			energy_table[x][y] = energy
 
