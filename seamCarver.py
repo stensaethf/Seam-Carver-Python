@@ -24,8 +24,6 @@ def carveSeams(filename, seam_num, direction):
 		new_image = carveSeam(new_image, direction)
 		num -= 1
 
-	showImage(new_image)
-
 	return new_image
 
 def carveSeam(image, direction):
@@ -78,10 +76,25 @@ def computeEnergy(image):
 
 	return energy_table
 
-def findSeam(energy, direction):
+def findSeam(energy_table, direction):
 	print 'Running: findSeam()'
 
+	width = len(energy_table)
+	height = len(energy_table[0])
+	seam_table = [[None for y in range(height)] for x in range(width)]
+	backtracker = [[None for y in range(height)] for x in range(width)]
+
+	if direction == 'V':
+		# code.
+	elif direction == 'H':
+		# code.
+	else:
+		print 'Invalid direction: ' + direction
+		sys.exit(1)
+
 	# code.
+
+	return seam
 
 def removeSeam(image, seam, direction):
 	print 'Running: removeSeam()'
@@ -96,6 +109,7 @@ def main():
 	print 'Running: Main()'
 
 	image = carveSeams(sys.argv[1], sys.arvg[2], sys.argv[3])
+	showImage(image)
 
 if __name__ == '__main__':
 	main()
