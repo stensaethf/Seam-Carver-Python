@@ -17,7 +17,10 @@ def carveSeams(image, seam_num, direction):
 def carveSeam(image, direction):
 	print 'Running: carseSeam()'
 
-	# code.
+	energy = computeEnergy(image)
+	seam = findSeam(energy, direction)
+	new_image = removeSeam(image, seam, direction)
+	return new_image
 
 def computeEnergy(image):
 	print 'Running: computeEnergy()'
