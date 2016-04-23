@@ -12,12 +12,18 @@ from PIL import Image
 def carveSeams(filename, seam_num, direction):
 	print 'Running: carve()'
 	print 'File: ' + filename
-	print 'Number of seams: ' + seam_num
+	print 'Number of seams: ' + str(seam_num)
 	print 'Direction: ' + direction
 
 	image = Image.open(filename)
+	new_image = image
 
-	# code.
+	while seam_num > 0:
+		print 'Seam number: ' + str(seam_num)
+		new_image = carveSeam(new_image, direction)
+		num -= 1
+
+	return new_image
 
 def carveSeam(image, direction):
 	print 'Running: carseSeam()'
@@ -49,7 +55,7 @@ def showImage(image):
 def main():
 	print 'Running: Main()'
 
-	# code.
+	image = carveSeams(sys.argv[1], sys.arvg[2], sys.argv[3])
 
 if __name__ == '__main__':
 	main()
