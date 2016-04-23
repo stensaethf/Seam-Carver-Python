@@ -6,11 +6,16 @@ Frederik Roenn Stensaeth
 Python implementation of a content-aware image resizing algorithm.
 """
 
-def carveSeams(image, seam_num, direction):
+import sys
+from PIL import Image
+
+def carveSeams(filename, seam_num, direction):
 	print 'Running: carve()'
 	print 'File: ' + filename
 	print 'Number of seams: ' + seam_num
 	print 'Direction: ' + direction
+
+	image = Image.open(filename)
 
 	# code.
 
@@ -39,8 +44,7 @@ def removeSeam(image, seam, direction):
 
 def showImage(image):
 	print 'Running: showImage'
-
-	# code.
+	image.show()
 
 def main():
 	print 'Running: Main()'
