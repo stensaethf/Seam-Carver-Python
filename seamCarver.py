@@ -15,7 +15,8 @@ def carveSeams(filename, seam_num, direction):
 	print 'Number of seams: ' + str(seam_num)
 	print 'Direction: ' + direction
 
-	image = Image.open(filename)
+	im = Image.open(filename)
+	image = im.load()
 	new_image = image
 
 	while seam_num > 0:
@@ -44,24 +45,34 @@ def computeEnergy(image):
 	for y in range(height):
 		for x in range(width):
 			if x == 0:
-				x_1 = CODE.
-				x_2 = CODE.
+				x_1 = image[x, y]
+				x_2 = image[x + 1, y]
 			else if x == width - 1:
-				x_1 = CODE.
-				x_2 = CODE.
+				x_1 = image[x - 1, y]
+				x_2 = image[x, y]
 			else:
-				x_1 = CODE.
-				x_2 = CODE.
+				x_1 = image[x - 1, y]
+				x_2 = image[x + 1, y]
 
 			if y == 0:
-				y_1 = CODE.
-				y_2 = CODE.
+				y_1 = image[x, y]
+				y_2 = image[x, y + 1]
 			else if y == height - 1:
-				y_1 = CODE.
-				y_2 = CODE.
+				y_1 = image[x, y - 1]
+				y_2 = image[x, y]
 			else:
-				y_1 = CODE.
-				y_2 = CODE.
+				y_1 = image[x, y - 1]
+				y_2 = image[x, y + 1]
+
+			x_red = abs(x_1[0] - x_2[0])
+			x_green = abs(x_1[1] - x_2[1])
+			x_blue = abs(x_1[2] - x_2[2])
+
+			y_red = abs(y_1[0] - y_2[0])
+			y_green = abs(y_1[1] - y_2[1])
+			y_blue = abs(y_1[2] - y_2[2])
+
+			energy = x_red + x_green + x_blue + y_red + y_green + y_blue
 
 			energy_table[x][y] = energy
 
