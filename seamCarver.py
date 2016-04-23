@@ -3,7 +3,7 @@ seamCarver.py
 Frederik Roenn Stensaeth
 04.22.16
 
-Python implementation of a content-aware image resizing algorithm.
+Python program to perform content-aware image resizing using seam carving.
 """
 
 import sys
