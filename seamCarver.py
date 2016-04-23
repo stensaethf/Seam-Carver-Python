@@ -23,6 +23,8 @@ def carveSeams(filename, seam_num, direction):
 		new_image = carveSeam(new_image, direction)
 		num -= 1
 
+	showImage(new_image)
+
 	return new_image
 
 def carveSeam(image, direction):
@@ -36,7 +38,28 @@ def carveSeam(image, direction):
 def computeEnergy(image):
 	print 'Running: computeEnergy()'
 
-	# code.
+	width, height = image.size
+	energy_table = [[None for y in range(height)] for x in range(width)]
+
+	for y in range(height):
+		for x in range(width):
+			if x == 0:
+				# code.
+			else if x == width - 1:
+				# code.
+			else:
+				# code.
+
+			if y == 0:
+				# code.
+			else if y == height - 1:
+				# code.
+			else:
+				# code.
+
+			energy_table[x][y] = energy
+
+	return energy_table
 
 def findSeam(energy, direction):
 	print 'Running: findSeam()'
