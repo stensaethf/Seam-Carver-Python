@@ -81,18 +81,53 @@ def findSeam(energy_table, direction):
 
 	width = len(energy_table)
 	height = len(energy_table[0])
-	seam_table = [[None for y in range(height)] for x in range(width)]
+	seam_dynamic = [[None for y in range(height)] for x in range(width)]
 	backtracker = [[None for y in range(height)] for x in range(width)]
 
 	if direction == 'V':
-		# code.
+		for y in range(height):
+			for x in range(width):
+				if y == 0:
+					seam_dynamic[x][y] = energy_table[x][y]
+					backtracker[x][y] = -1
+				else:
+					if x == 0:
+						# code.
+					else if x == width - 1:
+						# code.
+					else:
+						# code
+
+					seam_dynamic[x][y] = energy_table[x][y] = minimum
+		
+		min_num = seam_dynamic[0][height - 1]
+		min_index = 0
+		for x in range(width):
+			if min_num > seam_dynamic[x][height - 1]:
+				min_index = x
+				min_num = seam_dynamic[x][height - 1]
+
+		y_index = height - 1
+		x_index = min_index
+		seam = [[None for y in range(2)] for x in range(height)]
+		seam[y_index][0] = x_index
+		seam[y_index][1] = y_index
+		while y_index > 0:
+			backtrack = backtracker[x_index][y_index]
+			if backtrack == 0:
+				x_index -= 1
+			else if backtrack != 1:
+				x_index += 1
+			y_index -= 1
+
+			seam[y_index][0] = x_index
+			seam[y_index][1] = y_index
 	elif direction == 'H':
-		# code.
+		# code. pretty similar to the code above, so might want to put this in a
+		# function or something...
 	else:
 		print 'Invalid direction: ' + direction
 		sys.exit(1)
-
-	# code.
 
 	return seam
 
