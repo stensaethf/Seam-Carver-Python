@@ -144,11 +144,25 @@ def findSeam(energy_table, direction):
 					backtracker[x][y] = -1
 				else:
 					if y == 0:
-						# code
+						minimum = min(seam_dynamic[x - 1][y], seam_dynamic[x - 1][y + 1])
+						if minimum = seam_dynamic[x - 1][y]:
+							backtracker[x][y] = 1
+						else:
+							backtracker[x][y] = 2
 					elif y == height - 1:
-						# code
+						minimum = min(seam_dynamic[x - 1][y], seam_dynamic[x - 1][y - 1])
+						if minimum = seam_dynamic[x - 1][y]:
+							backtracker[x][y] = 1
+						else:
+							backtracker[x][y] = 0
 					else:
-						# code
+						minimum = min(seam_dynamic[x - 1][y - 1], seam_dynamic[x - 1][y], seam_dynamic[x - 1][y + 1])
+						if minimum = seam_dynamic[x - 1][y - 1]:
+							backtracker[x][y] = 0
+						elif minimum == seam_dynamic[x - 1][y]:
+							backtracker[x][y] = 1
+						else:
+							backtracker[x][y] = 2
 
 					seam_dynamic[x][y] = energy_table[x][y] + minimum
 		
