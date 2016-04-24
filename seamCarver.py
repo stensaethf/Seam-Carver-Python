@@ -76,118 +76,134 @@ def computeEnergy(image):
 
 	return energy_table
 
-def findSeam(energy_table, direction):
-	print 'Running: findSeam()'
-
+def findHorizontalSeam(energy_table):
+	print 'Running: findHorizontalSeam()'
 	width = len(energy_table)
 	height = len(energy_table[0])
 	seam_dynamic = [[None for y in range(height)] for x in range(width)]
 	backtracker = [[None for y in range(height)] for x in range(width)]
 
-	if direction == 'V':
+	for x in range(width):
 		for y in range(height):
-			for x in range(width):
+			if x == 0:
+				seam_dynamic[x][y] = energy_table[x][y]
+				backtracker[x][y] = -1
+			else:
 				if y == 0:
-					seam_dynamic[x][y] = energy_table[x][y]
-					backtracker[x][y] = -1
-				else:
-					if x == 0:
-						minimum = min(seam_dynamic[x][y - 1], seam_dynamic[x + 1][y - 1])
-						if minimum = seam_dynamic[x][y - 1]:
-							backtracker[x][y] = 1
-						else:
-							backtracker[x][y] = 2
-					else if x == width - 1:
-						minimum = min(seam_dynamic[x][y - 1], seam_dynamic[x - 1][y - 1])
-						if minimum = seam_dynamic[x][y - 1]:
-							backtracker[x][y] = 1
-						else:
-							backtracker[x][y] = 0
+					minimum = min(seam_dynamic[x - 1][y], seam_dynamic[x - 1][y + 1])
+					if minimum = seam_dynamic[x - 1][y]:
+						backtracker[x][y] = 1
 					else:
-						minimum = min(seam_dynamic[x - 1][y - 1], seam_dynamic[x][y - 1], seam_dynamic[x + 1][y - 1])
-						if minimum = seam_dynamic[x - 1][y - 1]:
-							backtracker[x][y] = 0
-						elif minimum = seam_dynamic[x][y - 1]:
-							backtracker[x][y] = 1
-						else:
-							backtracker[x][y] = 2
+						backtracker[x][y] = 2
+				elif y == height - 1:
+					minimum = min(seam_dynamic[x - 1][y], seam_dynamic[x - 1][y - 1])
+					if minimum = seam_dynamic[x - 1][y]:
+						backtracker[x][y] = 1
+					else:
+						backtracker[x][y] = 0
+				else:
+					minimum = min(seam_dynamic[x - 1][y - 1], seam_dynamic[x - 1][y], seam_dynamic[x - 1][y + 1])
+					if minimum = seam_dynamic[x - 1][y - 1]:
+						backtracker[x][y] = 0
+					elif minimum == seam_dynamic[x - 1][y]:
+						backtracker[x][y] = 1
+					else:
+						backtracker[x][y] = 2
 
-					seam_dynamic[x][y] = energy_table[x][y] = minimum
-		
-		min_num = seam_dynamic[0][height - 1]
-		min_index = 0
-		for x in range(width):
-			if min_num > seam_dynamic[x][height - 1]:
-				min_index = x
-				min_num = seam_dynamic[x][height - 1]
+				seam_dynamic[x][y] = energy_table[x][y] + minimum
+	
+	min_num = seam_dynamic[width - 1][0]
+	min_index = 0
+	for y in range(height):
+		if min_num > seam_dynamic[width - 1][y]:
+			min_index = y
+			min_num = seam_dynamic[width - 1][y]
 
-		y_index = height - 1
-		x_index = min_index
-		seam = [[None for y in range(2)] for x in range(height)]
-		seam[y_index][0] = x_index
-		seam[y_index][1] = y_index
-		while y_index > 0:
-			backtrack = backtracker[x_index][y_index]
-			if backtrack == 0:
-				x_index -= 1
-			else if backtrack != 1:
-				x_index += 1
+	y_index = min_index
+	x_index = width - 1
+	seam = [[None for y in range(2)] for x in range(width)]
+	seam[x_index][0] = x_index
+	seam[x_index][1] = y_index
+	while x_index > 0:
+		backtrack = backtracker[x_index][y_index]
+		if backtrack == 0:
 			y_index -= 1
+		else if backtrack != 1:
+			y_index += 1
+		x_index -= 1
 
-			seam[y_index][0] = x_index
-			seam[y_index][1] = y_index
-	elif direction == 'H':
-		for x in range(width):
-			for y in range(height):
-				if x == 0:
-					seam_dynamic[x][y] = energy_table[x][y]
-					backtracker[x][y] = -1
-				else:
-					if y == 0:
-						minimum = min(seam_dynamic[x - 1][y], seam_dynamic[x - 1][y + 1])
-						if minimum = seam_dynamic[x - 1][y]:
-							backtracker[x][y] = 1
-						else:
-							backtracker[x][y] = 2
-					elif y == height - 1:
-						minimum = min(seam_dynamic[x - 1][y], seam_dynamic[x - 1][y - 1])
-						if minimum = seam_dynamic[x - 1][y]:
-							backtracker[x][y] = 1
-						else:
-							backtracker[x][y] = 0
-					else:
-						minimum = min(seam_dynamic[x - 1][y - 1], seam_dynamic[x - 1][y], seam_dynamic[x - 1][y + 1])
-						if minimum = seam_dynamic[x - 1][y - 1]:
-							backtracker[x][y] = 0
-						elif minimum == seam_dynamic[x - 1][y]:
-							backtracker[x][y] = 1
-						else:
-							backtracker[x][y] = 2
-
-					seam_dynamic[x][y] = energy_table[x][y] + minimum
-		
-		min_num = seam_dynamic[width - 1][0]
-		min_index = 0
-		for y in range(height):
-			if min_num > seam_dynamic[width - 1][y]:
-				min_index = y
-				min_num = seam_dynamic[width - 1][y]
-
-		y_index = min_index
-		x_index = width - 1
-		seam = [[None for y in range(2)] for x in range(width)]
 		seam[x_index][0] = x_index
 		seam[x_index][1] = y_index
-		while x_index > 0:
-			backtrack = backtracker[x_index][y_index]
-			if backtrack == 0:
-				y_index -= 1
-			else if backtrack != 1:
-				y_index += 1
-			x_index -= 1
 
-			seam[x_index][0] = x_index
-			seam[x_index][1] = y_index
+	return seam
+
+def findVerticalSeam(energy_table):
+	print 'Running: findVerticalSeam()'
+	width = len(energy_table)
+	height = len(energy_table[0])
+	seam_dynamic = [[None for y in range(height)] for x in range(width)]
+	backtracker = [[None for y in range(height)] for x in range(width)]
+
+	for y in range(height):
+		for x in range(width):
+			if y == 0:
+				seam_dynamic[x][y] = energy_table[x][y]
+				backtracker[x][y] = -1
+			else:
+				if x == 0:
+					minimum = min(seam_dynamic[x][y - 1], seam_dynamic[x + 1][y - 1])
+					if minimum = seam_dynamic[x][y - 1]:
+						backtracker[x][y] = 1
+					else:
+						backtracker[x][y] = 2
+				else if x == width - 1:
+					minimum = min(seam_dynamic[x][y - 1], seam_dynamic[x - 1][y - 1])
+					if minimum = seam_dynamic[x][y - 1]:
+						backtracker[x][y] = 1
+					else:
+						backtracker[x][y] = 0
+				else:
+					minimum = min(seam_dynamic[x - 1][y - 1], seam_dynamic[x][y - 1], seam_dynamic[x + 1][y - 1])
+					if minimum = seam_dynamic[x - 1][y - 1]:
+						backtracker[x][y] = 0
+					elif minimum = seam_dynamic[x][y - 1]:
+						backtracker[x][y] = 1
+					else:
+						backtracker[x][y] = 2
+
+				seam_dynamic[x][y] = energy_table[x][y] = minimum
+	
+	min_num = seam_dynamic[0][height - 1]
+	min_index = 0
+	for x in range(width):
+		if min_num > seam_dynamic[x][height - 1]:
+			min_index = x
+			min_num = seam_dynamic[x][height - 1]
+
+	y_index = height - 1
+	x_index = min_index
+	seam = [[None for y in range(2)] for x in range(height)]
+	seam[y_index][0] = x_index
+	seam[y_index][1] = y_index
+	while y_index > 0:
+		backtrack = backtracker[x_index][y_index]
+		if backtrack == 0:
+			x_index -= 1
+		else if backtrack != 1:
+			x_index += 1
+		y_index -= 1
+
+		seam[y_index][0] = x_index
+		seam[y_index][1] = y_index
+
+	return seam
+
+def findSeam(energy_table, direction):
+	print 'Running: findSeam()'
+	if direction == 'V':
+		seam = findVerticalSeam(energy_table)
+	elif direction == 'H':
+		seam = findHorizontalSeam(energy_table)
 	else:
 		print 'Invalid direction: ' + direction
 		sys.exit(1)
