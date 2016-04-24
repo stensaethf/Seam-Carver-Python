@@ -137,8 +137,22 @@ def findSeam(energy_table, direction):
 			seam[y_index][0] = x_index
 			seam[y_index][1] = y_index
 	elif direction == 'H':
-		# code. pretty similar to the code above, so might want to put this in a
-		# function or something...
+		for x in range(width):
+			for y in range(height):
+				if x == 0:
+					seam_dynamic[x][y] = energy_table[x][y]
+					backtracker[x][y] = -1
+				else:
+					if y == 0:
+						# code
+					elif y == height - 1:
+						# code
+					else:
+						# code
+
+					seam_dynamic[x][y] = energy_table[x][y] + minimum
+		
+		# code
 	else:
 		print 'Invalid direction: ' + direction
 		sys.exit(1)
