@@ -220,8 +220,41 @@ def findSeam(energy_table, direction):
 
 def removeSeam(image, seam, direction):
 	print 'Running: removeSeam()'
+	new_image = XXXX
+	width, height = image.size
+	if direction == 'V':
+		for y in range(height):
+			shift = False
+			for x in range(width):
+				in_seam = False
+				if (seam[y][0] == x) and (seam[y][1] == y):
+					in_seam = True
+					shift = True
+				if not in_seam:
+					color = image[x, y]
+					if shift:
+						# code
+					else:
+						# code
+	elif direction == 'H':
+		for x in range(width):
+			shift = False
+			for y in range(height):
+				in_seam = False
+				if (seam[x][0] == x) and (seam[x][1] == y):
+					in_seam = True
+					shift = True
+				if not in_seam:
+					color = image[x, y]
+					if shift:
+						# code
+					else:
+						# code
+	else:
+		print 'Invalid direction: ' + direction
+		sys.exit(1)
 
-	# code.
+	return new_image
 
 def showImage(image):
 	print 'Running: showImage'
