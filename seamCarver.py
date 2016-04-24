@@ -226,30 +226,27 @@ def removeSeam(image, seam, direction):
 		for y in range(height):
 			shift = False
 			for x in range(width):
-				in_seam = False
-				if (seam[y][0] == x) and (seam[y][1] == y):
-					in_seam = True
-					shift = True
-				if not in_seam:
+				if not ((seam[y][0] == x) and (seam[y][1] == y)):
 					color = image[x, y]
 					if shift:
 						# code
 					else:
 						# code
+					shift = True
+				else:
+					shift = True
 	elif direction == 'H':
 		for x in range(width):
 			shift = False
 			for y in range(height):
-				in_seam = False
-				if (seam[x][0] == x) and (seam[x][1] == y):
-					in_seam = True
-					shift = True
-				if not in_seam:
+				if not ((seam[x][0] == x) and (seam[x][1] == y)):
 					color = image[x, y]
 					if shift:
 						# code
 					else:
 						# code
+				else:
+					shift = True
 	else:
 		print 'Invalid direction: ' + direction
 		sys.exit(1)
