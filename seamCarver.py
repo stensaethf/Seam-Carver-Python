@@ -83,6 +83,7 @@ def findHorizontalSeam(energy_table):
 	seam_dynamic = [[None for y in range(height)] for x in range(width)]
 	backtracker = [[None for y in range(height)] for x in range(width)]
 
+	# loops over the energy table to find the lowest energy path.
 	for x in range(width):
 		for y in range(height):
 			if x == 0:
@@ -112,6 +113,8 @@ def findHorizontalSeam(energy_table):
 
 				seam_dynamic[x][y] = energy_table[x][y] + minimum
 	
+	# now that we have computed the paths, we need to backtrace the min one.
+	# first we need to find the min at the end.
 	min_num = seam_dynamic[width - 1][0]
 	min_index = 0
 	for y in range(height):
@@ -119,6 +122,7 @@ def findHorizontalSeam(energy_table):
 			min_index = y
 			min_num = seam_dynamic[width - 1][y]
 
+	# now that we have the min we need to backtrace it.
 	y_index = min_index
 	x_index = width - 1
 	seam = [[None for y in range(2)] for x in range(width)]
@@ -144,6 +148,7 @@ def findVerticalSeam(energy_table):
 	seam_dynamic = [[None for y in range(height)] for x in range(width)]
 	backtracker = [[None for y in range(height)] for x in range(width)]
 
+	# loops over the energy table to find the lowest energy path.
 	for y in range(height):
 		for x in range(width):
 			if y == 0:
@@ -173,6 +178,8 @@ def findVerticalSeam(energy_table):
 
 				seam_dynamic[x][y] = energy_table[x][y] = minimum
 	
+	# now that we have computed the paths, we need to backtrace the min one.
+	# first we need to find the min at the end.
 	min_num = seam_dynamic[0][height - 1]
 	min_index = 0
 	for x in range(width):
@@ -180,6 +187,7 @@ def findVerticalSeam(energy_table):
 			min_index = x
 			min_num = seam_dynamic[x][height - 1]
 
+	# now that we have the min we need to backtrace it.
 	y_index = height - 1
 	x_index = min_index
 	seam = [[None for y in range(2)] for x in range(height)]
