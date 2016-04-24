@@ -166,7 +166,28 @@ def findSeam(energy_table, direction):
 
 					seam_dynamic[x][y] = energy_table[x][y] + minimum
 		
-		# code
+		min_num = seam_dynamic[width - 1][0]
+		min_index = 0
+		for y in range(height):
+			if min_num > seam_dynamic[width - 1][y]:
+				min_index = y
+				min_num = seam_dynamic[width - 1][y]
+
+		y_index = min_index
+		x_index = width - 1
+		seam = [[None for y in range(2)] for x in range(width)]
+		seam[x_index][0] = x_index
+		seam[x_index][1] = y_index
+		while x_index > 0:
+			backtrack = backtracker[x_index][y_index]
+			if backtrack == 0:
+				y_index -= 1
+			else if backtrack != 1:
+				y_index += 1
+			x_index -= 1
+
+			seam[x_index][0] = x_index
+			seam[x_index][1] = y_index
 	else:
 		print 'Invalid direction: ' + direction
 		sys.exit(1)
