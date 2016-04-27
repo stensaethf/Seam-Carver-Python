@@ -229,9 +229,9 @@ def removeSeam(image, seam, direction):
 				if not ((seam[y][0] == x) and (seam[y][1] == y)):
 					color = image[x, y]
 					if shift:
-						# code
+						# set rgb of x - 1, y to color
 					else:
-						# code
+						# set rgb of x, y to color
 					shift = True
 				else:
 					shift = True
@@ -242,9 +242,9 @@ def removeSeam(image, seam, direction):
 				if not ((seam[x][0] == x) and (seam[x][1] == y)):
 					color = image[x, y]
 					if shift:
-						# code
+						# set rgb of x, y - 1 to color
 					else:
-						# code
+						# set rgb of x, y to color
 				else:
 					shift = True
 	else:
