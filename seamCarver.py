@@ -32,16 +32,12 @@ def carveSeams(filename, seam_num, direction):
     return new_image
 
 def carveSeam(image, direction):
-    print 'Running: carseSeam()'
-
     energy = computeEnergy(image)
     seam = findSeam(energy, direction)
     new_image = removeSeam(image, seam, direction)
     return new_image
 
 def computeEnergy(im):
-    print 'Running: computeEnergy()'
-
     width, height = im.size
     image = im.load()
     energy_table = [[None for y in range(height)] for x in range(width)]
@@ -83,7 +79,6 @@ def computeEnergy(im):
     return energy_table
 
 def findHorizontalSeam(energy_table):
-    print 'Running: findHorizontalSeam()'
     width = len(energy_table)
     height = len(energy_table[0])
     seam_dynamic = [[None for y in range(height)] for x in range(width)]
@@ -148,7 +143,6 @@ def findHorizontalSeam(energy_table):
     return seam
 
 def findVerticalSeam(energy_table):
-    print 'Running: findVerticalSeam()'
     width = len(energy_table)
     height = len(energy_table[0])
     seam_dynamic = [[None for y in range(height)] for x in range(width)]
@@ -213,7 +207,6 @@ def findVerticalSeam(energy_table):
     return seam
 
 def findSeam(energy_table, direction):
-    print 'Running: findSeam()'
     if direction == 'V':
         seam = findVerticalSeam(energy_table)
     elif direction == 'H':
@@ -225,7 +218,6 @@ def findSeam(energy_table, direction):
     return seam
 
 def removeSeam(im, seam, direction):
-    print 'Running: removeSeam()'
     width, height = im.size
     image = im.load()
     if direction == 'V':
@@ -263,16 +255,10 @@ def removeSeam(im, seam, direction):
 
     return new_image
 
-def showImage(image):
-    print 'Running: showImage'
-    image.show()
-
 def main():
-    print 'Running: Main()'
-
     image = carveSeams(sys.argv[1], sys.argv[2], sys.argv[3])
     image.save('TEST.jpg')
-    showImage(image)
+    image.show()
 
 if __name__ == '__main__':
     main()
