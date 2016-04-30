@@ -220,9 +220,9 @@ def findSeam(energy_table, direction):
 
 def removeSeam(image, seam, direction):
 	print 'Running: removeSeam()'
-	new_image = XXXX
 	width, height = image.size
 	if direction == 'V':
+		new_image = Image.new("RGB", (width - 1, height), "white")
 		for y in range(height):
 			shift = False
 			for x in range(width):
@@ -236,6 +236,7 @@ def removeSeam(image, seam, direction):
 				else:
 					shift = True
 	elif direction == 'H':
+		new_image = Image.new("RGB", (width, height - 1), "white")
 		for x in range(width):
 			shift = False
 			for y in range(height):
