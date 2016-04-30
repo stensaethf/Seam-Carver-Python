@@ -265,7 +265,7 @@ def showImage(image):
 def main():
 	print 'Running: Main()'
 
-	image = carveSeams(sys.argv[1], sys.arvg[2], sys.argv[3])
+	image = carveSeams(sys.argv[1], sys.argv[2], sys.argv[3])
 	image.save('TEST.jpg')
 	showImage(image)
 
