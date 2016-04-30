@@ -19,6 +19,10 @@ def carveSeams(filename, seam_num, direction):
 	image = im.load()
 	new_image = image
 
+	if direction != 'V' and direction != 'H':
+		print 'Error. Sorry, direction needs to be either V or H...'
+		sys.exit(1)
+
 	while seam_num > 0:
 		print 'Seam number: ' + str(seam_num)
 		new_image = carveSeam(new_image, direction)
@@ -45,7 +49,7 @@ def computeEnergy(image):
 			if x == 0:
 				x_1 = image[x, y]
 				x_2 = image[x + 1, y]
-			else if x == width - 1:
+			elif x == width - 1:
 				x_1 = image[x - 1, y]
 				x_2 = image[x, y]
 			else:
@@ -55,7 +59,7 @@ def computeEnergy(image):
 			if y == 0:
 				y_1 = image[x, y]
 				y_2 = image[x, y + 1]
-			else if y == height - 1:
+			elif y == height - 1:
 				y_1 = image[x, y - 1]
 				y_2 = image[x, y]
 			else:
@@ -92,19 +96,19 @@ def findHorizontalSeam(energy_table):
 			else:
 				if y == 0:
 					minimum = min(seam_dynamic[x - 1][y], seam_dynamic[x - 1][y + 1])
-					if minimum = seam_dynamic[x - 1][y]:
+					if minimum == seam_dynamic[x - 1][y]:
 						backtracker[x][y] = 1
 					else:
 						backtracker[x][y] = 2
 				elif y == height - 1:
 					minimum = min(seam_dynamic[x - 1][y], seam_dynamic[x - 1][y - 1])
-					if minimum = seam_dynamic[x - 1][y]:
+					if minimum == seam_dynamic[x - 1][y]:
 						backtracker[x][y] = 1
 					else:
 						backtracker[x][y] = 0
 				else:
 					minimum = min(seam_dynamic[x - 1][y - 1], seam_dynamic[x - 1][y], seam_dynamic[x - 1][y + 1])
-					if minimum = seam_dynamic[x - 1][y - 1]:
+					if minimum == seam_dynamic[x - 1][y - 1]:
 						backtracker[x][y] = 0
 					elif minimum == seam_dynamic[x - 1][y]:
 						backtracker[x][y] = 1
@@ -132,7 +136,7 @@ def findHorizontalSeam(energy_table):
 		backtrack = backtracker[x_index][y_index]
 		if backtrack == 0:
 			y_index -= 1
-		else if backtrack != 1:
+		elif backtrack != 1:
 			y_index += 1
 		x_index -= 1
 
@@ -157,21 +161,21 @@ def findVerticalSeam(energy_table):
 			else:
 				if x == 0:
 					minimum = min(seam_dynamic[x][y - 1], seam_dynamic[x + 1][y - 1])
-					if minimum = seam_dynamic[x][y - 1]:
+					if minimum == seam_dynamic[x][y - 1]:
 						backtracker[x][y] = 1
 					else:
 						backtracker[x][y] = 2
-				else if x == width - 1:
+				elif x == width - 1:
 					minimum = min(seam_dynamic[x][y - 1], seam_dynamic[x - 1][y - 1])
-					if minimum = seam_dynamic[x][y - 1]:
+					if minimum == seam_dynamic[x][y - 1]:
 						backtracker[x][y] = 1
 					else:
 						backtracker[x][y] = 0
 				else:
 					minimum = min(seam_dynamic[x - 1][y - 1], seam_dynamic[x][y - 1], seam_dynamic[x + 1][y - 1])
-					if minimum = seam_dynamic[x - 1][y - 1]:
+					if minimum == seam_dynamic[x - 1][y - 1]:
 						backtracker[x][y] = 0
-					elif minimum = seam_dynamic[x][y - 1]:
+					elif minimum == seam_dynamic[x][y - 1]:
 						backtracker[x][y] = 1
 					else:
 						backtracker[x][y] = 2
@@ -197,7 +201,7 @@ def findVerticalSeam(energy_table):
 		backtrack = backtracker[x_index][y_index]
 		if backtrack == 0:
 			x_index -= 1
-		else if backtrack != 1:
+		elif backtrack != 1:
 			x_index += 1
 		y_index -= 1
 
@@ -262,6 +266,7 @@ def main():
 	print 'Running: Main()'
 
 	image = carveSeams(sys.argv[1], sys.arvg[2], sys.argv[3])
+	image.save('TEST.jpg')
 	showImage(image)
 
 if __name__ == '__main__':
