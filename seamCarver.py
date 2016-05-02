@@ -10,8 +10,6 @@ import sys
 from PIL import Image
 
 def carveSeams(filename, seam_num, direction):
-    seam_num = int(seam_num)
-
     print 'Running: carve()'
     print 'File: ' + filename
     print 'Number of seams: ' + str(seam_num)
@@ -232,7 +230,6 @@ def removeSeam(im, seam, direction):
                         pix[x -1, y] = color
                     else:
                         pix[x, y] = color
-                    shift = True
                 else:
                     shift = True
     elif direction == 'H':
@@ -256,7 +253,7 @@ def removeSeam(im, seam, direction):
     return new_image
 
 def main():
-    image = carveSeams(sys.argv[1], sys.argv[2], sys.argv[3])
+    image = carveSeams(sys.argv[1], int(sys.argv[2]), sys.argv[3])
     image.save('TEST.jpg')
     image.show()
 
