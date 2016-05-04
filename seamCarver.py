@@ -10,11 +10,15 @@ import sys
 from PIL import Image
 
 def carveSeams(filename, seam_num, direction):
-    print 'Running: carve()'
-    print 'File: ' + filename
-    print 'Number of seams: ' + str(seam_num)
-    print 'Direction: ' + direction
+    """
+    carveSeams() resizes an image by finding a given amount of 'seams' and
+    removing them.
 
+    @params: filename,
+             number of seams to be removed,
+             direction of the resizing
+    @return: resized image
+    """
     im = Image.open(filename)
     new_image = im
 
@@ -30,12 +34,24 @@ def carveSeams(filename, seam_num, direction):
     return new_image
 
 def carveSeam(image, direction):
+    """
+    carveSeam() xx
+
+    @params: xx
+    @return: xx
+    """
     energy = computeEnergy(image)
     seam = findSeam(energy, direction)
     new_image = removeSeam(image, seam, direction)
     return new_image
 
 def computeEnergy(im):
+    """
+    computeEnergy() xx
+
+    @params: xx
+    @return: xx
+    """
     width, height = im.size
     image = im.load()
     energy_table = [[None for y in range(height)] for x in range(width)]
@@ -77,6 +93,12 @@ def computeEnergy(im):
     return energy_table
 
 def findHorizontalSeam(energy_table):
+    """
+    findHorizontalSeam() xx
+
+    @params: xx
+    @return: xx
+    """
     width = len(energy_table)
     height = len(energy_table[0])
     seam_dynamic = [[None for y in range(height)] for x in range(width)]
@@ -141,6 +163,12 @@ def findHorizontalSeam(energy_table):
     return seam
 
 def findVerticalSeam(energy_table):
+    """
+    findVerticalSeam() xx
+
+    @params: xx
+    @return: xx
+    """
     width = len(energy_table)
     height = len(energy_table[0])
     seam_dynamic = [[None for y in range(height)] for x in range(width)]
@@ -205,6 +233,12 @@ def findVerticalSeam(energy_table):
     return seam
 
 def findSeam(energy_table, direction):
+    """
+    findSeam() xx
+
+    @params: xx
+    @return: xx
+    """
     if direction == 'V':
         seam = findVerticalSeam(energy_table)
     elif direction == 'H':
@@ -216,6 +250,12 @@ def findSeam(energy_table, direction):
     return seam
 
 def removeSeam(im, seam, direction):
+    """
+    removeSeam() xx
+
+    @params: xx
+    @return: xx
+    """
     width, height = im.size
     image = im.load()
     if direction == 'V':
