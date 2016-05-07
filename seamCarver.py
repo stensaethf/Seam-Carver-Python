@@ -82,6 +82,7 @@ def computeEnergy(im):
                 y_1 = image[x, y - 1]
                 y_2 = image[x, y + 1]
 
+            # compute the difference in the rgb values and sum them.
             x_red = abs(x_1[0] - x_2[0])
             x_green = abs(x_1[1] - x_2[1])
             x_blue = abs(x_1[2] - x_2[2])
@@ -98,17 +99,21 @@ def computeEnergy(im):
 
 def findHorizontalSeam(energy_table):
     """
-    findHorizontalSeam() xx
+    findHorizontalSeam() finds a horizontal seam using an energy table.
+    The lowest energy seam is found, as it traces out the path from left to
+    right in the picture where the least amount of stuff is "happening".
 
-    @params: xx
-    @return: xx
+    @params: energy table
+    @return: seam (two dimensional list)
     """
     width = len(energy_table)
     height = len(energy_table[0])
     seam_dynamic = [[None for y in range(height)] for x in range(width)]
     backtracker = [[None for y in range(height)] for x in range(width)]
 
-    # loops over the energy table to find the lowest energy path.
+    # loops over the energy table to find the lowest energy path. we are
+    # looking for the lowest energy path, because it tells us where the least
+    # is "happening" in the image.
     for x in range(width):
         for y in range(height):
             if x == 0:
@@ -168,17 +173,21 @@ def findHorizontalSeam(energy_table):
 
 def findVerticalSeam(energy_table):
     """
-    findVerticalSeam() xx
+    findVerticalSeam() finds a vertical seam using an energy table.
+    The lowest energy seam is found, as it traces out the path from top to
+    bottom in the picture where the least amount of stuff is "happening".
 
-    @params: xx
-    @return: xx
+    @params: energy table
+    @return: seam (two dimensional list)
     """
     width = len(energy_table)
     height = len(energy_table[0])
     seam_dynamic = [[None for y in range(height)] for x in range(width)]
     backtracker = [[None for y in range(height)] for x in range(width)]
 
-    # loops over the energy table to find the lowest energy path.
+    # loops over the energy table to find the lowest energy path. we are
+    # looking for the lowest energy path, because it tells us where the least
+    # is "happening" in the image.
     for y in range(height):
         for x in range(width):
             if y == 0:
