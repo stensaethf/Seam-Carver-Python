@@ -35,10 +35,11 @@ def carveSeams(filename, seam_num, direction):
 
 def carveSeam(image, direction):
     """
-    carveSeam() xx
+    carveSeam() removes a single seam from an image. Computes the energy
+    before finding and removing a seam.
 
-    @params: xx
-    @return: xx
+    @params: image, direction of seam
+    @return: image (w/o one seam)
     """
     energy = computeEnergy(image)
     seam = findSeam(energy, direction)
@@ -47,15 +48,18 @@ def carveSeam(image, direction):
 
 def computeEnergy(im):
     """
-    computeEnergy() xx
+    computeEnergy() computes the energy table for an image.
 
-    @params: xx
-    @return: xx
+    @params: image
+    @return: energy table
     """
     width, height = im.size
     image = im.load()
     energy_table = [[None for y in range(height)] for x in range(width)]
 
+    # loop over every pixel in the image and compute its energy.
+    # the energy of a pixel is defined as the difference in the rgb value of
+    # surrounding pixels.
     for y in range(height):
         for x in range(width):
             if x == 0:
