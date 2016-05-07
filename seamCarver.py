@@ -247,10 +247,10 @@ def findVerticalSeam(energy_table):
 
 def findSeam(energy_table, direction):
     """
-    findSeam() xx
+    findSeam() finds and returns the lowest energy seam in an energy table.
 
-    @params: xx
-    @return: xx
+    @params: energy table, direction of seam 
+    @return: seam (two dimensional list)
     """
     if direction == 'V':
         seam = findVerticalSeam(energy_table)
@@ -264,13 +264,17 @@ def findSeam(energy_table, direction):
 
 def removeSeam(im, seam, direction):
     """
-    removeSeam() xx
+    removeSeam() removes a provided seam from a given image.
 
-    @params: xx
-    @return: xx
+    @params: image, seam, direction of seam
+    @return: image (w/o one seam)
     """
     width, height = im.size
     image = im.load()
+
+    # remove the provided seam from the image by backtracking the seam through
+    # the image and bumping pixels over to effectively remove the pixels in
+    # the seam.
     if direction == 'V':
         new_image = Image.new("RGB", (width - 1, height), "white")
         pix = new_image.load()
