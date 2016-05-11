@@ -310,9 +310,14 @@ def removeSeam(im, seam, direction):
     return new_image
 
 def main():
+    if len(sys.argv) < 5:
+        print 'Too few arguments provided.'
+        print 'Usage: $ python seamCarver.py <input filename> <num of seams> <seam direction> <output filename> [--show]'
+        sys.exit(1)
     image = carveSeams(sys.argv[1], int(sys.argv[2]), sys.argv[3])
-    image.save('TEST.jpg')
-    image.show()
+    image.save(sys.argv[4])
+    if len(sys.argv) == 6 and sys.argv[5] == '--show':
+        image.show()
 
 if __name__ == '__main__':
     main()
